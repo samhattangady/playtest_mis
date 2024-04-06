@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+<meta charset="utf-8">
+<title>Playtest: Mouse in Slippers</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="manifest" href="site.webmanifest">
+<link rel="apple-touch-icon" href="icon.png">
+<!-- Place favicon.ico in the root directory -->
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Short+Stack&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+  <div id="app" class="container">
+    <div class="header">
+      <p class="title"> Playtest: Mouse in Slippers </p>
+    </div>
+    <div class="contents">
+      <div class="greetings">
+        <p>Hey there.</p>
+        <p><i>Mouse in Slippers</i> is a game that I have been working on, and I would like to make it as good
+        as the limits of my skill will allow. I really appreciate you taking the time to try out the game. In case
+        you do not already have a link to the playtest release, <a href="https://chapliboy.itch.io/mouse-in-slippers?password=g46CMgF9tScL8jx">here you go</a>.</p>
+        <p>You can find the general feedback section below. There is a also a detailed level by level breakdown. This breakdown includes video solutions for all the levels as well, which could be spoilers if you haven't played the game yet. You can fill in the feedback for levels that you enjoyed or the ones you thought felt out of place. Your feedback will be saved in your browser, so you can fill it in at your own pace.</p>
+        <p>This release is mostly meant to test out how the game mechanics and levels play out. The art and music will be undergoing polish. The levels that are presented however, are representative of their final versions. All feedback is appreciated.</p>
+        <p>I hope you enjoy your time with <i>Mouse in Slippers</i>, and I thank you for all your feedback.</p>
+        <p>- chapliboy <br> @chapliboy on discord. </p>
+      </div>
+      <hr>
+      <div class="general-feedback">
+        <p class="subtitle"> General Feedback </p>
+        <p> Name (this will be used to credit you in the game) </p>
+        <input class="short-text mis-input" v-model="name" placeholder="Name">
+        <p> Email address (a key will be sent here when the game is released. If you prefer, you can reach out to me on discord, and I can send you the key there.) </p>
+        <input class="short-text mis-input" v-model="email" placeholder="Email">
+        <p> Thoughts on the game mechanics, and how they interact </p>
+        <textarea class="long-text mis-input" v-model="mechanics" placeholder=""></textarea>
+        <p> Thoughts on the pacing of the game and the levels </p>
+        <textarea class="long-text mis-input" v-model="pacing" placeholder=""></textarea>
+        <p> General thoughts and feedback </p>
+        <textarea class="long-text mis-input" v-model="general" placeholder=""></textarea>
+        <p> Bugs and other issues </p>
+        <textarea class="long-text mis-input" v-model="bugs" placeholder=""></textarea>
+      </div>
+      <hr>
+      <div class="level-breakdown">
+        <div class="row"> 
+          <span class="subtitle">Level Breakdown </span>
+          <span><a href="javascript:;" class="toggle" v-on:click="toggleLevels"> {{ levelsText }} </a></span>
+        </div>
+        <div class="levels-list" v-show="showLevels">
+          <div v-for="(lev, index) in levelsData" class="single-level">
+            <div class="level-title"> 
+              <span class="level-name">{{ levelsData[index].name }}</span>
+              <span>
+                <a v-if="levelsData[index].show" href="javascript:;" class="toggle2" v-on:click="toggleLevelShow(index)"> Hide Level </a>
+                <a v-else href="javascript:;" class="toggle2" v-on:click="toggleLevelShow(index)"> Show Level </a>
+              </span>
+            </div>
+            <div v-show="levelsData[index].show">
+              <video class="videoplayer padup" controls>
+                <source :src="levelsData[index].videoLink" type="video/mp4">
+                Your browser does not support HTML video.
+              </video>
+              <div class="center padup"> Difficulty (relative to the point where you face the level) </div>
+              <div class="row spread">
+                <div class="small"> Easy </div>
+                <div> <input class="slider" type="range" v-model="levelsData[index].difficulty" name="difficulty" min="1" max="5" step="1"> </div>
+                <div class="small"> Difficult </div>
+              </div>
+              <div class="center padup"> Tedious vs Interesting </div>
+              <div class="row spread">
+                <div class="small"> Tedious </div>
+                <div> <input class="slider" type="range" v-model="levelsData[index].interest" name="difficulty" min="1" max="5" step="1"> </div>
+                <div class="small"> Interesting </div>
+              </div>
+              <p> Thoughts on <i>{{ levelsData[index].name }}</i> </p>
+              <textarea class="long-text mis-input" v-model="levelsData[index].notes" placeholder=""></textarea>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="final">
+        <a href="javascript:;" class="submit" v-on:click="submitFeedback"> Submit Feedback </a>
+      </div>
+      <div v-if="submitSuccess">Thank you for your feedback.</div>
+      <p class="footer center"> I hope you enjoyed <i>Mouse in Slippers</i>.</p>
+    </div>
+  </div>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
